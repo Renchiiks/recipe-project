@@ -39,7 +39,7 @@ public class Data implements ApplicationListener<ContextRefreshedEvent> {
     private List<Recipe> getRecipes() {
         List<Recipe> recipes = new ArrayList<>();
 
-        Optional<UnitOfMeasure> eachUOMOptional = measureRepository.findByUom("Each");
+        Optional<UnitOfMeasure> eachUOMOptional = measureRepository.findByUom("Unit");
 
         if (!eachUOMOptional.isPresent()) {
             throw new RuntimeException("Exception UOM Not Found");
@@ -87,12 +87,12 @@ public class Data implements ApplicationListener<ContextRefreshedEvent> {
             throw new RuntimeException("Exception UOM Not Found");
         }
 
-        UnitOfMeasure eachUOM = eachUOMOptional.get();
-        UnitOfMeasure tableSpoonUOM = eachUOMOptional.get();
-        UnitOfMeasure teaSpoonUOM = eachUOMOptional.get();
-        UnitOfMeasure dashUOM = eachUOMOptional.get();
-        UnitOfMeasure pintUOM = eachUOMOptional.get();
-        UnitOfMeasure cupUOM = eachUOMOptional.get();
+        UnitOfMeasure unit = eachUOMOptional.get();
+        UnitOfMeasure tableSpoonUOM = tableSpoonUOMOptional.get();
+        UnitOfMeasure teaSpoonUOM = teaSpoonUOMOptional.get();
+        UnitOfMeasure dashUOM = dashUOMOptional.get();
+        UnitOfMeasure pintUOM = pintUOMOptional.get();
+        UnitOfMeasure cupUOM = cupsUOMOptional.get();
         UnitOfMeasure cloveUOM = cloveUOMOptional.get();
         UnitOfMeasure poundUOM = poundUOMOptional.get();
 
@@ -132,16 +132,16 @@ public class Data implements ApplicationListener<ContextRefreshedEvent> {
         guacamoleNote.setRecipeNotes("Be careful handling chiles if using. Wash your hands thoroughly after handling and do not touch your eyes or the area near your eyes with your hands for several hours.");
         guacamoleRecipe.setNotes(guacamoleNote);
 
-        guacamoleRecipe.addIngredient(new Ingredient("ripe avocado", new BigDecimal(2), eachUOM));
+        guacamoleRecipe.addIngredient(new Ingredient("ripe avocado", new BigDecimal(2), unit));
         guacamoleRecipe.addIngredient(new Ingredient("salt", new BigDecimal("0.25"), teaSpoonUOM));
         guacamoleRecipe.addIngredient(new Ingredient("fresh lime juice", new BigDecimal(1), tableSpoonUOM));
         guacamoleRecipe.addIngredient(new Ingredient("onion", new BigDecimal(2), tableSpoonUOM));
-        guacamoleRecipe.addIngredient(new Ingredient("serrano chiles", new BigDecimal(1), eachUOM));
+        guacamoleRecipe.addIngredient(new Ingredient("serrano chiles", new BigDecimal(1), unit));
         guacamoleRecipe.addIngredient(new Ingredient("cilantro", new BigDecimal(2), tableSpoonUOM));
         guacamoleRecipe.addIngredient(new Ingredient("black papper", new BigDecimal(1), dashUOM));
-        guacamoleRecipe.addIngredient(new Ingredient("tomato", new BigDecimal("0.5"), eachUOM));
-        guacamoleRecipe.addIngredient(new Ingredient("reddish", new BigDecimal(1), eachUOM));
-        guacamoleRecipe.addIngredient(new Ingredient("tortilla", new BigDecimal(2), eachUOM));
+        guacamoleRecipe.addIngredient(new Ingredient("tomato", new BigDecimal("0.5"), unit));
+        guacamoleRecipe.addIngredient(new Ingredient("reddish", new BigDecimal(1), unit));
+        guacamoleRecipe.addIngredient(new Ingredient("tortilla", new BigDecimal(2), unit));
         guacamoleRecipe.setSource("https://www.simplyrecipes.com/recipes/perfect_guacamole/");
 
         recipes.add(guacamoleRecipe);
@@ -172,16 +172,16 @@ public class Data implements ApplicationListener<ContextRefreshedEvent> {
         chickenTacos.addIngredient(new Ingredient("fresh-squeezed orange juice", new BigDecimal(3), tableSpoonUOM));
         chickenTacos.addIngredient(new Ingredient("olive oil", new BigDecimal(2), tableSpoonUOM));
         chickenTacos.addIngredient(new Ingredient("skinless, boneless chicken thighs", new BigDecimal("1.25"), poundUOM));
-        chickenTacos.addIngredient(new Ingredient("small corn tortillas", new BigDecimal(8), eachUOM));
+        chickenTacos.addIngredient(new Ingredient("small corn tortillas", new BigDecimal(8), unit));
         chickenTacos.addIngredient(new Ingredient("packed baby arugula", new BigDecimal(3), cupUOM));
-        chickenTacos.addIngredient(new Ingredient("medium ripe avocados, sliced", new BigDecimal(2), eachUOM));
-        chickenTacos.addIngredient(new Ingredient("radishes, thinly sliced", new BigDecimal(4), eachUOM));
+        chickenTacos.addIngredient(new Ingredient("medium ripe avocados, sliced", new BigDecimal(2), unit));
+        chickenTacos.addIngredient(new Ingredient("radishes, thinly sliced", new BigDecimal(4), unit));
         chickenTacos.addIngredient(new Ingredient("cherry tomatoes, halved", new BigDecimal("0.5"), pintUOM));
-        chickenTacos.addIngredient(new Ingredient("red onion, thinly sliced", new BigDecimal("0.25"), eachUOM));
-        chickenTacos.addIngredient(new Ingredient("Roughly chopped cilantro", new BigDecimal(1), eachUOM));
+        chickenTacos.addIngredient(new Ingredient("red onion, thinly sliced", new BigDecimal("0.25"), unit));
+        chickenTacos.addIngredient(new Ingredient("Roughly chopped cilantro", new BigDecimal(1), unit));
         chickenTacos.addIngredient(new Ingredient("our cream thinned", new BigDecimal("0.5"), cupUOM));
         chickenTacos.addIngredient(new Ingredient("milk", new BigDecimal("0.25"), cupUOM));
-        chickenTacos.addIngredient(new Ingredient("lime, cut into wedges", new BigDecimal(1), eachUOM));
+        chickenTacos.addIngredient(new Ingredient("lime, cut into wedges", new BigDecimal(1), unit));
 
         Notes chickenTacosNote = new Notes();
         chickenTacosNote.setRecipeNotes("Look for ancho chile powder with the Mexican ingredients at your grocery store, on buy it online. (If you can't find ancho chili powder, you replace the ancho chili, the oregano, and the cumin with 2 1/2 tablespoons regular chili powder, though the flavor won't be quite the same.)");
