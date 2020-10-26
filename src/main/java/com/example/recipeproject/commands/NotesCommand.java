@@ -1,6 +1,5 @@
 package com.example.recipeproject.commands;
 
-import com.example.recipeproject.model.Recipe;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,6 +9,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class NotesCommand {
     private Long id;
-    private Recipe recipe;
+    private RecipeCommand recipe;
     private String recipeNotes;
 }
