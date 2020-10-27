@@ -1,4 +1,4 @@
-package com.example.recipeproject.service;
+package com.example.recipeproject.services;
 
 import com.example.recipeproject.converters.RecipeCommandToRecipe;
 import com.example.recipeproject.converters.RecipeToRecipeCommand;
@@ -63,5 +63,15 @@ class RecipeServiceImplTest {
         assertNotNull(recipeOptional, "Null recipe returned");
         verify(recipeRepository).findById(anyLong());
 
+    }
+
+    @Test
+    void deleteRecipe() {
+
+        Long id = 1L;
+
+        recipeService.deleteById(id);
+
+        verify(recipeRepository).deleteById(anyLong());
     }
 }

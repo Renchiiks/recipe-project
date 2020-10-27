@@ -1,4 +1,4 @@
-package com.example.recipeproject.service;
+package com.example.recipeproject.services;
 
 import com.example.recipeproject.commands.RecipeCommand;
 import com.example.recipeproject.model.Recipe;
@@ -13,4 +13,6 @@ public interface RecipeService {
     RecipeCommand findCommandById(Long id);
 
     RecipeCommand saveRecipeCommand(RecipeCommand command);
+
+    void deleteById(Long id);
 }

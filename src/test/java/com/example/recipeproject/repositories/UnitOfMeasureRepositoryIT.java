@@ -26,9 +26,9 @@ class UnitOfMeasureRepositoryIT {
     //@DirtiesContext
     void findByUom() {
 
-        Optional<UnitOfMeasure> measure = unitOfMeasureRepository.findByUom("Each");
+        Optional<UnitOfMeasure> measure = unitOfMeasureRepository.findByUom("Cup");
 
-        assertEquals("Each", measure.get().getUom());
+        assertEquals("Cup", measure.get().getUom());
     }
 
     @Test

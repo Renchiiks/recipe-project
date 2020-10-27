@@ -1,4 +1,4 @@
-package com.example.recipeproject.service;
+package com.example.recipeproject.services;
 
 import com.example.recipeproject.commands.RecipeCommand;
 import com.example.recipeproject.converters.RecipeCommandToRecipe;
@@ -60,6 +60,13 @@ public class RecipeServiceImpl implements RecipeService {
         log.debug("Saved RecipeId:" + savedRecipe.getId());
 
         return recipeToRecipeCommand.convert(savedRecipe);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+
+        recipeRepository.deleteById(id);
+
     }
 
 

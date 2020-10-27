@@ -2,7 +2,7 @@ package com.example.recipeproject.controllers;
 
 import com.example.recipeproject.commands.RecipeCommand;
 import com.example.recipeproject.model.Recipe;
-import com.example.recipeproject.service.RecipeService;
+import com.example.recipeproject.services.RecipeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -42,9 +42,9 @@ class RecipeControllerTest {
 
         Mockito.when(service.findById(anyLong())).thenReturn(recipe);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/recipe/show/1"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/recipe/1/show"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("recipe/show"))
+                .andExpect(view().name("/recipe/show"))
                 .andExpect(model().attributeExists("recipe"));
     }
 
@@ -56,8 +56,8 @@ class RecipeControllerTest {
         Mockito.when(service.findCommandById(anyLong())).thenReturn(recipe);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/recipe/1/update"))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/recipe/show/1"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("recipe/recipeForm"))
                 .andExpect(model().attribute("recipe", recipe));
     }
 
@@ -81,6 +81,8 @@ class RecipeControllerTest {
                 .param("id", "")
                 .param("description", "some description"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/recipe/show/1"));
+                .andExpect(view().name("redirect:/recipe/1/show"));
     }
+
+
 }

@@ -1,6 +1,6 @@
 package com.example.recipeproject.controllers;
 import com.example.recipeproject.model.Recipe;
-import com.example.recipeproject.service.RecipeService;
+import com.example.recipeproject.services.RecipeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
