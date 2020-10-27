@@ -26,6 +26,9 @@ public class RecipeToRecipeCommand implements Converter<Recipe, RecipeCommand> {
     @Nullable
     @Override
     public RecipeCommand convert(Recipe recipe) {
+        if (recipe == null) {
+            return null;
+        }
 
         RecipeCommand recipeCommand = new RecipeCommand();
 

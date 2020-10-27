@@ -7,14 +7,14 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CategoryCommandToCategoryTest {
+class CategoryToCategoryCommandTest {
     private static final Long ID_VALUE = 1L;
     private static final String DESCRIPTION = "description";
-    CategoryCommandToCategory converter;
+    CategoryToCategoryCommand converter;
 
     @BeforeEach
     void setUp() {
-        converter = new CategoryCommandToCategory();
+        converter = new CategoryToCategoryCommand();
     }
 
     @Test
@@ -24,22 +24,21 @@ class CategoryCommandToCategoryTest {
 
     @Test
     void testEmptyObject() {
-        assertNotNull(converter.convert(new CategoryCommand()));
+        assertNotNull(converter.convert(new Category()));
     }
 
     @Test
     void convert() {
         //given
-        CategoryCommand categoryCommand = new CategoryCommand();
-        categoryCommand.setId(ID_VALUE);
-        categoryCommand.setDescription(DESCRIPTION);
+        Category category = new Category();
+        category.setId(ID_VALUE);
+        category.setDescription(DESCRIPTION);
 
         //when
-        Category category = converter.convert(categoryCommand);
+        CategoryCommand categoryCommand = converter.convert(category);
 
         //then
-        assertEquals(ID_VALUE, category.getId());
-        assertEquals(DESCRIPTION, category.getDescription());
-
+        assertEquals(ID_VALUE, categoryCommand.getId());
+        assertEquals(DESCRIPTION, categoryCommand.getDescription());
     }
 }
