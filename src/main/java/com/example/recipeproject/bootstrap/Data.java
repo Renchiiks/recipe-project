@@ -142,7 +142,9 @@ public class Data implements ApplicationListener<ContextRefreshedEvent> {
         guacamoleRecipe.addIngredient(new Ingredient("tomato", new BigDecimal("0.5"), unit));
         guacamoleRecipe.addIngredient(new Ingredient("reddish", new BigDecimal(1), unit));
         guacamoleRecipe.addIngredient(new Ingredient("tortilla", new BigDecimal(2), unit));
-        guacamoleRecipe.setSource("https://www.simplyrecipes.com/recipes/perfect_guacamole/");
+
+        guacamoleRecipe.setUrl("https://www.simplyrecipes.com/recipes/perfect_guacamole/");
+        guacamoleRecipe.setSource("SimplyRecipes");
 
         recipes.add(guacamoleRecipe);
 
@@ -191,7 +193,8 @@ public class Data implements ApplicationListener<ContextRefreshedEvent> {
         chickenTacos.setCookTime(15);
         chickenTacos.getCategories().add(mexicanCategory);
         chickenTacos.getCategories().add(americanCategory);
-        chickenTacos.setSource("https://www.simplyrecipes.com/recipes/spicy_grilled_chicken_tacos/");
+        chickenTacos.setUrl("https://www.simplyrecipes.com/recipes/spicy_grilled_chicken_tacos/");
+        chickenTacos.setSource("SimplyRecipes");
 
         recipes.add(chickenTacos);
 

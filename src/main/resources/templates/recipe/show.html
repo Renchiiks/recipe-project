@@ -67,7 +67,15 @@
                             <h5>Source:</h5>
                         </div>
                         <div class="col-md-6">
-                            <p th:text="${recipe.getSource()}">http://www.example.com</p>
+                            <p th:text="${recipe.getSource()}">Source</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h5>Url:</h5>
+                        </div>
+                        <div class="col-md-6">
+                            <p th:text="${recipe.getUrl()}">http://www.example.com</p>
                         </div>
                     </div>
                 </div>
@@ -80,7 +88,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <table class="table" >
+                            <table class="table">
                                 <thead>
                                 <tr>
                                     <th>Amount</th>
@@ -88,7 +96,7 @@
                                     <th>Ingredient</th>
                                 </tr>
                                 </thead>
-                                <tbody >
+                                <tbody>
                                 <tr th:each="ingredient : ${recipe.getIngredients()}">
                                     <td th:text="${ingredient.getAmount()}"></td>
                                     <td th:text="${ingredient.getMeasure().uom}"></td>
