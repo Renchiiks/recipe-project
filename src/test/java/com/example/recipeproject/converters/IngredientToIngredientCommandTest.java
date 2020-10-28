@@ -17,7 +17,7 @@ class IngredientToIngredientCommandTest {
     public static final String DESCRIPTION = "description";
     public static final BigDecimal AMOUNT = new BigDecimal(1);
     public static final Long UOM_ID = 2L;
-    public static final Recipe recipe = new Recipe();
+    public static final Recipe RECIPE = new Recipe();
 
     IngredientToIngredientCommand converter;
 
@@ -44,6 +44,7 @@ class IngredientToIngredientCommandTest {
 
         Ingredient ingredient = new Ingredient();
         ingredient.setId(ID_VALUE);
+        ingredient.setRecipe(RECIPE);
         ingredient.setDescription(DESCRIPTION);
         ingredient.setAmount(AMOUNT);
         ingredient.setMeasure(measure);
@@ -61,7 +62,7 @@ class IngredientToIngredientCommandTest {
     }
 
     @Test
-    void testUOFNull() {
+    void testUOMNull() {
         //given
         Ingredient ingredient = new Ingredient();
         ingredient.setId(ID_VALUE);
