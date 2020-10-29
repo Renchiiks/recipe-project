@@ -21,15 +21,15 @@ public class RecipeCommandToRecipe implements Converter<RecipeCommand, Recipe> {
         this.noteConverter = noteConverter;
     }
 
-    @Nullable
     @Synchronized
+    @Nullable
     @Override
     public Recipe convert(RecipeCommand recipeCommand) {
         if (recipeCommand == null) {
             return null;
         }
 
-        Recipe recipe = new Recipe();
+        final Recipe recipe = new Recipe();
         recipe.setId(recipeCommand.getId());
         recipe.setSource(recipeCommand.getSource());
         recipe.setCookTime(recipeCommand.getCookTime());
@@ -39,16 +39,16 @@ public class RecipeCommandToRecipe implements Converter<RecipeCommand, Recipe> {
         recipe.setServings(recipeCommand.getServings());
         recipe.setPrepTime(recipeCommand.getPrepTime());
         recipe.setDescription(recipeCommand.getDescription());
-        recipe.setImage(recipeCommand.getImage());
+        //recipe.setImage(recipeCommand.getImage());
         recipe.setUrl(recipeCommand.getUrl());
 
         if (recipeCommand.getCategories() != null && recipeCommand.getCategories().size() > 0) {
             recipeCommand.getCategories()
                     .forEach(category -> recipe.getCategories().add(categoryConverter.convert(category)));
         }
-        if(recipeCommand.getIngredients()!= null&& recipeCommand.getIngredients().size()>0){
+        if (recipeCommand.getIngredients() != null && recipeCommand.getIngredients().size() > 0) {
             recipeCommand.getIngredients()
-                    .forEach(ingredient -> recipe.getIngredients().add(ingredientConverter.convert(ingredient)) );
+                    .forEach(ingredient -> recipe.getIngredients().add(ingredientConverter.convert(ingredient)));
         }
 
         return recipe;

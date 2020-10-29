@@ -21,7 +21,6 @@ public class RecipeToRecipeCommand implements Converter<Recipe, RecipeCommand> {
         this.categoryConverter = categoryConverter;
     }
 
-
     @Synchronized
     @Nullable
     @Override
@@ -30,14 +29,14 @@ public class RecipeToRecipeCommand implements Converter<Recipe, RecipeCommand> {
             return null;
         }
 
-        RecipeCommand recipeCommand = new RecipeCommand();
+        final RecipeCommand recipeCommand = new RecipeCommand();
 
         recipeCommand.setCookTime(recipe.getCookTime());
         recipeCommand.setDescription(recipe.getDescription());
         recipeCommand.setDifficulty(recipe.getDifficulty());
         recipeCommand.setDirections(recipe.getDirections());
         recipeCommand.setId(recipe.getId());
-        recipeCommand.setImage(recipe.getImage());
+        //recipeCommand.setImage(recipe.getImage());
         recipeCommand.setNotes(notesConverter.convert(recipe.getNotes()));
         recipeCommand.setPrepTime(recipe.getPrepTime());
         recipeCommand.setServings(recipe.getServings());

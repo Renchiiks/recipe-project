@@ -1,12 +1,14 @@
 package com.example.recipeproject.model;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity
 public class Recipe {
     @Id
@@ -23,17 +25,17 @@ public class Recipe {
     @Lob
     private String directions;
 
-    @Lob
-    private Byte[] image;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    private Notes notes;
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
     private Set<Ingredient> ingredients = new HashSet<>();
 
+    @Lob
+    private Byte[] image;
+
     @Enumerated(value = EnumType.STRING)
     private Difficulty difficulty;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Notes notes;
 
     @ManyToMany
     @JoinTable(name = "recipe_category",
@@ -41,11 +43,17 @@ public class Recipe {
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<>();
 
+    public void setNotes(Notes notes) {
+        if (notes != null) {
+            this.notes = notes;
+            notes.setRecipe(this);
+        }
+    }
+
     public Recipe addIngredient(Ingredient ingredient) {
         ingredient.setRecipe(this);
         this.ingredients.add(ingredient);
         return this;
 
     }
-
 }

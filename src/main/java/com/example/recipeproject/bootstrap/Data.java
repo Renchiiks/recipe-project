@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Component
 @Slf4j
+@Component
 public class Data implements ApplicationListener<ContextRefreshedEvent> {
 
     private final CategoryRepository categoryRepository;
