@@ -55,11 +55,11 @@
                                 </div>
                                 <div class="col-md-3 form-group">
                                     <label>Difficulty:</label>
-                                    <!--                                    <select th:field="*{difficulty}">-->
-                                    <!--                                        <option th:each="diff : ${difficulties}"-->
-                                    <!--                                                th:value="${diff}"-->
-                                    <!--                                                th:text="#{${'recipe.difficulty.' + diff}}"></option>-->
-                                    <!--                                    </select>-->
+                                    <select class="form-control" th:field="*{difficulty}">
+                                        <option th:each="diff : ${T(com.example.recipeproject.model.Difficulty).values()}"
+                                                th:value="${diff.name()}"
+                                                th:text="${diff.name()}"></option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="row">
