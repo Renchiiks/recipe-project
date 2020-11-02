@@ -35,12 +35,16 @@
                             <tr>
                                 <th>Id</th>
                                 <th>Description</th>
+                                <th>Amount</th>
+                                <th>Measure</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
                                 <td th:text="${ingredient.getId()}">ID</td>
                                 <td th:text="${ingredient.getDescription()}">Description</td>
+                                <td th:text="${ingredient.getAmount()}"></td>
+                                <td th:text="${ingredient.getMeasure().getUom()}"></td>
                             </tr>
                             </tbody>
                         </table>

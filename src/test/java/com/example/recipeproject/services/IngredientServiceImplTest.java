@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 class IngredientServiceImplTest {
     private final IngredientToIngredientCommand ingredientToIngredientCommand;
@@ -42,6 +43,7 @@ class IngredientServiceImplTest {
         MockitoAnnotations.initMocks(this);
 
         ingredientService = new IngredientServiceImpl(ingredientToIngredientCommand, ingredientCommandToIngredient, recipeRepository, unitOfMeasureRepository);
+
     }
 
     @Test
@@ -98,5 +100,31 @@ class IngredientServiceImplTest {
         assertEquals(3L, savedCommand.getId());
         verify(recipeRepository).findById(anyLong());
         verify(recipeRepository).save(any(Recipe.class));
+    }
+
+    @Test
+    void testDeleteIngredient() {
+
+        //given
+        Ingredient ingredient = new Ingredient();
+        ingredient.setId(3L);
+
+        Recipe recipe = new Recipe();
+        recipe.setId(1L);
+
+        recipe.addIngredient(ingredient);
+        ingredient.setRecipe(recipe);
+
+        Optional<Recipe> recipeOptional = Optional.of(recipe);
+
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+        //when
+        ingredientService.deleteIngredient(1L, 3L);
+
+        //then
+        verify(recipeRepository).findById(anyLong());
+        verify(recipeRepository).save(any(recipe.getClass()));
+
     }
 }

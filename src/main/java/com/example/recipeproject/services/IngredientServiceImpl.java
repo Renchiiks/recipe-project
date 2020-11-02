@@ -94,13 +94,40 @@ public class IngredientServiceImpl implements IngredientService {
 
             if (savedOptionalIngredient.isEmpty()) {
                 savedOptionalIngredient = savedRecipe.getIngredients().stream()
-                        .filter(recipeIngredients -> recipeIngredients.getDescription().equals(command.getDescription()))
+                        .filter(ingredient -> ingredient.getDescription().equals(command.getDescription()))
                         .filter(ingredient -> ingredient.getAmount().equals(command.getAmount()))
-                        .filter(ingredient -> ingredient.getMeasure().getUom().equals(command.getMeasure().getUom()))
+                        .filter(ingredient -> ingredient.getMeasure().getId().equals(command.getMeasure().getId()))
                         .findFirst();
             }
 
             return ingredientToIngredientCommand.convert(savedOptionalIngredient.get());
+        }
+    }
+
+    @Override
+    public void deleteIngredient(Long recipeId, Long ingredientId) {
+        Optional<Recipe> optionalRecipe = recipeRepository.findById(recipeId);
+
+        if (optionalRecipe.isPresent()) {
+            log.error("Recipe  found with id" + recipeId);
+
+            Recipe recipe = optionalRecipe.get();
+
+            Optional<Ingredient> ingredientOptional = recipe
+                    .getIngredients()
+                    .stream()
+                    .filter(ingredient -> ingredient.getId().equals(ingredientId))
+                    .findFirst();
+
+            if (ingredientOptional.isPresent()) {
+                log.error("Ingredient found with " + ingredientId);
+                Ingredient ingredientToDelete = ingredientOptional.get();
+                ingredientToDelete.setRecipe(null);
+                recipe.getIngredients().remove(ingredientOptional.get());
+                recipeRepository.save(recipe);
+            }
+        }else {
+            log.debug("Recipe Id Not found. Id:" + recipeId);
         }
     }
 }
