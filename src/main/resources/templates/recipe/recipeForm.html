@@ -39,9 +39,13 @@
                                 <div class="col-md-3 form-group">
                                     <label>Categories:</label>
                                 </div>
-                                <div class="custom-radio">
-                                    <!--                                    <label th:each="category : ${categories}">Categories</label>-->
-                                    <!--                                    <input type="checkbox" th:field="${category.getDescription()}">-->
+                                <div>
+                                    <select class="custom-radio" th:field="*{categories}">
+                                        <option th:each="category : ${recipe.getCategories()}"
+                                                th:value="${category.getId()}"
+                                                th:text="${category.getDescription()}">
+                                        </option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="row">
