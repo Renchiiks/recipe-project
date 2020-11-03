@@ -8,14 +8,18 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -45,7 +49,6 @@ class ImageControllerTest {
 
         Mockito.when(recipeService.findCommandById(anyLong())).thenReturn(recipeCommand);
 
-
         mockMvc.perform(MockMvcRequestBuilders.get("/recipe/1/image"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("recipe/imageForm"))
@@ -65,5 +68,35 @@ class ImageControllerTest {
 
         verify(imageService).saveImageFile(anyLong(), any());
 
+    }
+
+    @Test
+    void renderImageFromDB() throws Exception {
+        //given
+        RecipeCommand recipeCommand = new RecipeCommand();
+        recipeCommand.setId(1L);
+
+        String s = "test text";
+        Byte[] bytes = new Byte[s.getBytes().length];
+
+        int i = 0;
+
+        for (byte b : s.getBytes()) {
+            bytes[i++] = b;
+        }
+
+        recipeCommand.setImage(bytes);
+
+        when(recipeService.findCommandById(anyLong())).thenReturn(recipeCommand);
+
+        //when
+        MockHttpServletResponse response = mockMvc.perform(get("/recipe/1/recipeImage"))
+                .andExpect(status().isOk())
+                .andReturn().getResponse();
+
+        byte[] responseBytes = response.getContentAsByteArray();
+
+        //then
+        assertEquals(s.getBytes().length, responseBytes.length);
     }
 }

@@ -38,8 +38,7 @@
                     </div>
                     <div class="col-md-3">
                         <img src="../../static/testpic.jpg"
-                             th:src="@{/testpic.jpg}"
-                             width="275" height="183">
+                             th:src="@{'/recipe/'+ ${recipe.getId()}+ '/recipeImage'}">
                     </div>
                     <div class="col-md-3">
                         <h5>Categories</h5>
