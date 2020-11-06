@@ -3,6 +3,7 @@ package com.example.recipeproject.services;
 import com.example.recipeproject.commands.RecipeCommand;
 import com.example.recipeproject.converters.RecipeCommandToRecipe;
 import com.example.recipeproject.converters.RecipeToRecipeCommand;
+import com.example.recipeproject.exeptions.NotFoundException;
 import com.example.recipeproject.model.Recipe;
 import com.example.recipeproject.repositories.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -39,8 +40,8 @@ public class RecipeServiceImpl implements RecipeService {
     public Recipe findById(Long idValue) {
         Optional<Recipe> recipeOptional = recipeRepository.findById(idValue);
 
-        if (!recipeOptional.isPresent()) {
-            throw new RuntimeException("Recipe not found");
+        if (recipeOptional.isEmpty()) {
+            throw new NotFoundException("Recipe not found");
         }
         return recipeOptional.get();
     }
