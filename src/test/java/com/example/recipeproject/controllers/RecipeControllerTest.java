@@ -73,7 +73,7 @@ class RecipeControllerTest {
     }
 
     @Test
-    void saveOrUpdateRecipe() throws Exception {
+    void testPostNewRecipeFormValidation() throws Exception {
         RecipeCommand command = new RecipeCommand();
         command.setId(1L);
 
@@ -82,9 +82,26 @@ class RecipeControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.post("/recipe")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("id", "")
-                .param("description", "some description"))
+                .param("description", "some description")
+                .param("directions", "directions"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/recipe/1/show"));
+    }
+
+    @Test
+    void testPostNewRecipeFormValidationFail() throws Exception {
+        RecipeCommand command = new RecipeCommand();
+        command.setId(2L);
+
+        when(service.saveRecipeCommand(any())).thenReturn(command);
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/recipe")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("id", ""))
+
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("recipe"))
+                .andExpect(view().name("recipe/recipeForm"));
     }
 
     @Test
@@ -100,10 +117,10 @@ class RecipeControllerTest {
     @Test
     void testGetRecipeNumberFormatException() throws Exception {
 
-       // when(service.findById(any())).thenThrow(NumberFormatException.class);
+        // when(service.findById(any())).thenThrow(NumberFormatException.class);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/recipe/ert/show"))
                 .andExpect(status().isBadRequest())
-                .andExpect(view().name("error400"));
+                .andExpect(view().name("recipe/errors/error400"));
     }
 }

@@ -106,6 +106,6 @@ class ImageControllerTest {
     void testGetImageNumberFormatException() throws Exception {
         mockMvc.perform(get("/recipe/wert/recipeImage"))
                 .andExpect(status().isBadRequest())
-                .andExpect(view().name("error400"));
+                .andExpect(view().name("recipe/errors/error400"));
     }
 }
