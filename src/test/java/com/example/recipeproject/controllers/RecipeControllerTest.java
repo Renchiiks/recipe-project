@@ -32,7 +32,9 @@ class RecipeControllerTest {
 
         controller = new RecipeController(service);
 
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(controller)
+                .setControllerAdvice(new ControllerExceptionHandler())
+                .build();
     }
 
     @Test
@@ -92,7 +94,7 @@ class RecipeControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders.get("/recipe/1/show"))
                 .andExpect(status().isNotFound())
-                .andExpect(view().name("error404"));
+                .andExpect(view().name("recipe/errors/error404"));
     }
 
     @Test
@@ -102,6 +104,6 @@ class RecipeControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders.get("/recipe/ert/show"))
                 .andExpect(status().isBadRequest())
-                .andExpect(view().name("400error"));
+                .andExpect(view().name("error400"));
     }
 }
